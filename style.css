@@ -133,8 +133,9 @@ button:hover {
     background-size: cover;
     background-position: center;
     position: relative; 
+    /* ¡AJUSTE CLAVE 1 PARA EL SCROLL! */
     justify-content: flex-start;
-    padding-top: 50px; 
+    padding-top: 30px; /* Reducido a 30px para dar más espacio */
 }
 
 /* Capa de opacidad para el mapa */
@@ -168,8 +169,8 @@ button:hover {
     gap: 30px; 
     padding: 20px;
     
-    /* Permite el scroll vertical en móviles si hay muchas piezas */
-    max-height: 85vh; 
+    /* ¡AJUSTE CLAVE 2 PARA EL SCROLL! */
+    max-height: 95vh; /* Aumentado a 95vh para que el área de scroll sea más grande */
     overflow-y: auto; 
     scrollbar-width: none; /* Ocultar scrollbar en Firefox */
 }
@@ -269,7 +270,7 @@ button:hover {
 
 @media (max-width: 768px) {
     
-    /* Ajustes para la Introducción */
+    /* Ajustes para la Introducción (Para que el título no sea gigante) */
     #pantalla-introduccion h1 {
         font-size: 3em; 
     }
@@ -293,9 +294,9 @@ button:hover {
     
     /* Hacer que los recuadros se estiren más en móvil */
     .coleccion-item {
-        width: 90%; /* Ocupa casi todo el ancho disponible */
-        max-width: 400px; /* Tamaño máximo aún más flexible */
-        height: 250px; /* Un poco menos altos */
+        width: 90%; 
+        max-width: 400px; 
+        height: 250px; 
         padding: 15px; 
     }
     
