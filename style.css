@@ -270,9 +270,9 @@ button:hover {
 
 @media (max-width: 768px) {
     
-    /* Ajustes para la Introducción (Para que el título no sea gigante) */
+    /* Ajustes para la Introducción (¡CLAVE!) */
     #pantalla-introduccion h1 {
-        font-size: 3em; 
+        font-size: 3em !important; /* <-- FORZAR REDUCCIÓN DEL TÍTULO */
     }
     .texto-versiculo {
         bottom: 10px;
