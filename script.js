@@ -1,254 +1,166 @@
-/* Archivo: script.js (Versión FINAL y COMPLETA) */
+/* ------------------------------------------------------------- */
+/* 1. Datos del Mapa y las Piezas (EDITA AQUÍ) */
+/* ------------------------------------------------------------- */
 
-// -----------------------------------
-// 1. DATA DE LAS PIEZAS COLECCIONABLES (CONFIGURA ESTO)
-// -----------------------------------
-
-// Códigos secretos que se deben escanear con el QR.
-const PIEZAS_SECRETAS = {
-    '01': 'SOL-FLOR-123', 
-    '02': 'LUNA-AZUL-456',  
-    '03': 'ESTRELLA-ROJA-789',  
-    '04': 'CARTA-OCULTA-101', 
-    '05': 'CORAZON-ORO-202',
-    '06': 'FINAL-FELIZ-303',
+const mapaDeTesoros = {
+    // Pieza 1: Crustáceo Cascarudo
+    'pieza-01': {
+        titulo: "Crustáceo Cascarudo",
+        descripcion: "Sé lo mucho que significa para ti la serie de Bob Esponja. Literalmente fue tu infancia y sé que a la 'Titi' de tu interior, esa niña pequeñita, fue y es muy feliz al verla. Quiero obsequiarte esta primera pieza para que la armes y así, próximamente, puedas ir desbloqueando las demás. Esta pieza me hace recordar mucho el capítulo cuando Calamardo lee el diario de Bob Esponja y hace como gallina, me parece muy gracioso. Bueno, para finalizar, ¡quién sabe si puedas tener un mini Fondo de Bikini! jejeje...",
+        imagen: "assets/imagen-01.jpg", 
+        silueta: "assets/silueta-01.png",
+        video_url: "PONER_AQUI_URL_DE_YOUTUBE_PIEZA_1"
+    },
+    
+    // Pieza 2: Casa de Bob Esponja
+    'pieza-02': {
+        titulo: "Casa de Bob Esponja",
+        descripcion: "¡¡Vive en una piña debajo del mar, BOB ESPONJA!! Jejeje, perdón, es una canción increíble que hace recordar mi infancia y creo que la tuya también. Bueno, amor, esta pieza me hace recordar un episodio cuando Gary se vuelve loco por una pelotita roja, y demuestra que aunque se interpongan obstáculos, siempre te buscaré a ti, mi amada, y te daré todo mi amor por el resto de mi vida...",
+        imagen: "assets/imagen-02.jpg", 
+        silueta: "assets/silueta-02.png",
+        video_url: "PONER_AQUI_URL_DE_YOUTUBE_PIEZA_2"
+    },
+    
+    // Pieza 3: Casa de Patricio
+    'pieza-03': {
+        titulo: "Casa de Patricio",
+        descripcion: "Patricio Estrella me hace recordar que, aunque yo sea un poco menso, cuando estoy a tu lado siempre soy feliz y siento que puedo hacerlo todo, siento una conexión tan real. Un episodio que recuerdo mucho en la casa de Patricio es cuando él invita a Bob Esponja y todo es de tierra, ¡ja, ja, es increíble! Amor, quiero que todo sea contigo. Quiero construir mi futuro a tu lado, conseguir mi primera cocina, mi primer sofá, refrigeradora y otras cosas para nuestra casa.",
+        imagen: "assets/imagen-03.jpg", 
+        silueta: "assets/silueta-03.png",
+        video_url: "PONER_AQUI_URL_DE_YOUTUBE_PIEZA_3"
+    },
+    
+    // Pieza 4: Casa de Calamardo (FALTA DESCRIPCIÓN)
+    'pieza-04': {
+        titulo: "Casa de Calamardo",
+        descripcion: "PONER_AQUI_DESCRIPCION_PIEZA_4",
+        imagen: "assets/imagen-04.jpg", 
+        silueta: "assets/silueta-04.png",
+        video_url: "PONER_AQUI_URL_DE_YOUTUBE_PIEZA_4"
+    },
+    
+    // Pieza 5: Casa de Arenita (FALTA DESCRIPCIÓN)
+    'pieza-05': {
+        titulo: "Casa de Arenita",
+        descripcion: "PONER_AQUI_DESCRIPCION_PIEZA_5",
+        imagen: "assets/imagen-05.jpg", 
+        silueta: "assets/silueta-05.png",
+        video_url: "PONER_AQUI_URL_DE_YOUTUBE_PIEZA_5"
+    },
+    
+    // Pieza 6: Balde de Carnada (FALTA DESCRIPCIÓN)
+    'pieza-06': {
+        titulo: "Balde de Carnada",
+        descripcion: "PONER_AQUI_DESCRIPCION_PIEZA_6",
+        imagen: "assets/imagen-06.jpg", 
+        silueta: "assets/silueta-06.png",
+        video_url: "PONER_AQUI_URL_DE_YOUTUBE_PIEZA_6"
+    }
 };
 
-// Contenido detallado de cada pieza.
-const CONTENIDO_PIEZAS = {
-    '01': {
-        titulo: 'El Abrazo Inicial',
-        descripcion: 'La primera pieza de la colección. Representa el inicio de nuestra jornada. Fue creada con mucho cariño el 1 de enero de 2025.',
-        imagen: 'assets/pieza-01.jpg',
-        silueta: 'assets/silueta-01.png',
-        fechaDesbloqueo: '2025-01-01', 
-        videoUrl: 'https://www.youtube.com/embed/ID_DEL_PRIMER_VIDEO' // <-- REEMPLAZA
-    },
-    '02': {
-        titulo: 'El Camino Recorrido',
-        descripcion: 'Una pieza que simboliza la perseverancia y los desafíos superados. ¡Nunca te rindas!',
-        imagen: 'assets/pieza-02.jpg',
-        silueta: 'assets/silueta-02.png',
-        fechaDesbloqueo: '2025-01-15',
-        videoUrl: 'https://www.youtube.com/embed/ID_DEL_SEGUNDO_VIDEO' // <-- REEMPLAZA
-    },
-    '03': {
-        titulo: 'El Tesoro Escondido',
-        descripcion: 'La pieza que guarda el secreto más grande de todos. Solo se revela a los más curiosos.',
-        imagen: 'assets/pieza-03.jpg',
-        silueta: 'assets/silueta-03.png',
-        fechaDesbloqueo: '2025-02-01',
-        videoUrl: '' // Sin video en este ejemplo
-    },
-    '04': {
-        titulo: 'La Promesa Eterna',
-        descripcion: 'Una representación de la fe inquebrantable y el amor que perdura a través del tiempo.',
-        imagen: 'assets/pieza-04.jpg',
-        silueta: 'assets/silueta-04.png',
-        fechaDesbloqueo: '2025-02-15',
-        videoUrl: 'https://www.youtube.com/embed/ID_DEL_CUARTO_VIDEO' // <-- REEMPLAZA
-    },
-    '05': {
-        titulo: 'El Vuelo Compartido',
-        descripcion: 'Esta pieza celebra la libertad y el hecho de volar juntos hacia el futuro.',
-        imagen: 'assets/pieza-05.jpg',
-        silueta: 'assets/silueta-05.png',
-        fechaDesbloqueo: '2025-03-01',
-        videoUrl: ''
-    },
-    '06': {
-        titulo: 'El Final Feliz',
-        descripcion: 'La culminación de nuestra historia, un recordatorio de que cada esfuerzo vale la pena.',
-        imagen: 'assets/pieza-06.jpg',
-        silueta: 'assets/silueta-06.png',
-        fechaDesbloqueo: '2025-03-15',
-        videoUrl: ''
-    },
-};
+/* ------------------------------------------------------------- */
+/* 2. Lógica de Navegación y Desbloqueo */
+/* ------------------------------------------------------------- */
 
-
-// -----------------------------------
-// 2. CONSTANTES y ELEMENTOS DEL DOM (NO TOCAR)
-// -----------------------------------
-
-const PANTALLAS = {
-    INTRO: 'pantalla-introduccion',
-    COLECCION: 'pantalla-coleccion',
-    DETALLE: 'pantalla-detalle',
-};
-
-const gridColeccion = document.querySelector('.coleccion-grid');
-const contenidoDetalle = document.getElementById('contenido-detalle');
-
-
-// -----------------------------------
-// 3. FUNCIONES DE UTILIDAD (NO TOCAR)
-// -----------------------------------
-
-function mostrarPantalla(idPantalla) {
-    document.querySelectorAll('.pantalla').forEach(p => {
-        p.classList.remove('activa');
-        p.style.display = 'none';
+document.addEventListener('DOMContentLoaded', () => {
+    
+    // Eventos de los botones de navegación
+    document.getElementById('btn-continuar').addEventListener('click', () => {
+        mostrarPantalla('pantalla-coleccion');
     });
-
-    const pantalla = document.getElementById(idPantalla);
-    if (pantalla) {
-        pantalla.classList.add('activa');
-        pantalla.style.display = 'flex';
-    }
-
-    if (idPantalla === PANTALLAS.COLECCION) {
-        generarMapaColeccion();
-    }
-}
-
-function desbloquearPieza(id) {
-    let piezasDesbloqueadas = JSON.parse(localStorage.getItem('coleccion_desbloqueada')) || [];
-    
-    if (!piezasDesbloqueadas.includes(id)) {
-        piezasDesbloqueadas.push(id);
-        localStorage.setItem('coleccion_desbloqueada', JSON.stringify(piezasDesbloqueadas));
-        return true; // Desbloqueo exitoso
-    }
-    return false; // Ya estaba desbloqueada
-}
-
-function cargarDetallePieza(id) {
-    const pieza = CONTENIDO_PIEZAS[id];
-    
-    let mediaHTML;
-    if (pieza.videoUrl && pieza.videoUrl.includes('embed')) { // Verificación simple para embed
-        mediaHTML = `
-            <div class="video-container">
-                <iframe src="${pieza.videoUrl}" title="Video de la pieza ${pieza.titulo}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
-        `;
-    } else if (pieza.imagen) {
-        mediaHTML = `<img src="${pieza.imagen}" alt="${pieza.titulo}">`;
-    } else {
-        mediaHTML = '';
-    }
-
-    contenidoDetalle.innerHTML = `
-        <button id="btn-volver-mapa">← Volver a la Colección</button>
-        ${mediaHTML}
-        <h1>${pieza.titulo}</h1>
-        <p>${pieza.descripcion}</p>
-    `;
 
     document.getElementById('btn-volver-mapa').addEventListener('click', () => {
-        mostrarPantalla(PANTALLAS.COLECCION);
+        mostrarPantalla('pantalla-coleccion');
     });
-}
 
-
-// -----------------------------------
-// 4. LÓGICA CENTRAL (MAPA y QR)
-// -----------------------------------
-
-/**
- * Genera el grid de la colección, mostrando la imagen si está desbloqueada 
- * o la silueta y "Nombre Misterioso" si está bloqueada.
- */
-function generarMapaColeccion() {
-    let piezasDesbloqueadas = JSON.parse(localStorage.getItem('coleccion_desbloqueada')) || [];
-    gridColeccion.innerHTML = ''; 
-
-    Object.keys(PIEZAS_SECRETAS).forEach(id => {
-        const estaDesbloqueada = piezasDesbloqueadas.includes(id);
-        const contenido = CONTENIDO_PIEZAS[id];
-        
-        const div = document.createElement('div');
-        div.id = `pieza-${id}`;
-        div.classList.add('coleccion-item');
-        
-        const fechaLimite = new Date(contenido.fechaDesbloqueo);
-        const fechaLegible = fechaLimite.toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
-        
-        if (estaDesbloqueada) {
-            // ✅ Desbloqueado: Muestra la foto y es clickeable para ver el detalle
-            div.innerHTML = `
-                <h3>${contenido.titulo}</h3>
-                <img src="${contenido.imagen}" alt="Pieza Desbloqueada ${id}" style="max-width: 90%; max-height: 80%; border-radius: 5px;">
-            `;
-            div.addEventListener('click', () => {
-                cargarDetallePieza(id);
-                mostrarPantalla(PANTALLAS.DETALLE);
-            });
+    // Añadir el evento de clic a cada pieza del mapa
+    document.querySelectorAll('.coleccion-item').forEach(item => {
+        item.addEventListener('click', () => {
+            const piezaId = item.id;
             
-        } else {
-            // 🔒 Bloqueado: Muestra la silueta negra y el mensaje "Nombre Misterioso"
-            div.classList.add('bloqueada');
-            div.innerHTML = `
-                <div class="silueta-container">
-                    <img src="${contenido.silueta}" alt="Silueta Coleccionable ${id}">
-                </div>
-                <h3>Nombre Misterioso</h3>
-                <p>Disponible el: ${fechaLegible}</p>
-            `;
-            
-            // Al hacer clic en una pieza bloqueada, pide escanear
-            div.addEventListener('click', () => {
-                alert(`¡Esta pieza está bloqueada! Para desbloquear "${contenido.titulo}", debes escanear el Código QR correspondiente.`);
-            });
+            // Si la pieza está bloqueada, la desbloqueamos con un clic
+            if (item.classList.contains('bloqueada')) {
+                item.classList.remove('bloqueada');
+                mostrarDetalle(piezaId);
+            } else {
+                // Si ya está desbloqueada, solo mostramos el detalle
+                mostrarDetalle(piezaId);
+            }
+        });
+    });
+
+    // Función para mostrar solo una pantalla
+    function mostrarPantalla(id) {
+        document.querySelectorAll('.pantalla').forEach(pantalla => {
+            pantalla.classList.remove('activa');
+        });
+        document.getElementById(id).classList.add('activa');
+    }
+
+    // Función para mostrar el detalle de una pieza
+    function mostrarDetalle(piezaId) {
+        const data = mapaDeTesoros[piezaId];
+        const detalleContainer = document.getElementById('contenido-detalle');
+        
+        if (!data) return;
+
+        // Extrae el ID de YouTube del URL completo
+        const videoIdMatch = data.video_url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?.*v=|(?:embed|v)\/))([^&?]+)/);
+        const videoId = videoIdMatch ? videoIdMatch[1] : null;
+        
+        let videoEmbedHtml = '';
+        if (videoId) {
+            videoEmbedHtml = `
+                <div class="video-container">
+                    <iframe 
+                        src="https://www.youtube.com/embed/${videoId}?autoplay=1" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>`;
         }
         
-        gridColeccion.appendChild(div);
-    });
-}
-
-/**
- * Verifica si la URL tiene un código QR válido y desbloquea en segundo plano.
- * No salta a la pantalla de detalle.
- */
-function verificarDesbloqueo() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const idPieza = urlParams.get('pieza'); 
-    const codigoIngresado = urlParams.get('codigo'); 
-
-    if (idPieza && codigoIngresado) {
+        // Contenido que se inyecta en la pantalla de detalle
+        detalleContainer.innerHTML = `
+            <h2>${data.titulo}</h2>
+            <p>${data.descripcion}</p>
+            <p><strong>Fecha especial:</strong> ${data.fecha || 'PONER AQUÍ FECHA'}</p>
+            
+            <img src="${data.imagen}" alt="${data.titulo}">
+            
+            ${videoEmbedHtml}
+        `;
         
-        // 1. Verificar si el código secreto es correcto
-        if (PIEZAS_SECRETAS[idPieza] === codigoIngresado) {
+        mostrarPantalla('pantalla-detalle');
+    }
+    
+    
+    /* ------------------------------------------------------------- */
+    /* 3. Lógica del Código QR (Permite saltar con la URL) */
+    /* ------------------------------------------------------------- */
+    
+    function verificarHash() {
+        // Verifica si la URL tiene un #ID, lo que indica que viene de un QR
+        const hash = window.location.hash.substring(1); 
+
+        if (hash) {
+            const piezaElemento = document.getElementById(hash);
             
-            const fueDesbloqueadaAhora = desbloquearPieza(idPieza); // Intenta desbloquear y guarda el estado
-            
-            // 2. Notificación y limpieza de URL
-            if (fueDesbloqueadaAhora) {
-                alert(`🎉 ¡Éxito! La Pieza #${idPieza} ("${CONTENIDO_PIEZAS[idPieza].titulo}") ha sido identificada y desbloqueada. ¡Presiona CONTINUAR para ver el Mapa de la Colección!`);
+            if (piezaElemento && mapaDeTesoros[hash]) {
+                // Desbloquea la pieza y salta a la vista de detalle
+                piezaElemento.classList.remove('bloqueada');
+                mostrarDetalle(hash);
             } else {
-                alert(`La Pieza #${idPieza} ("${CONTENIDO_PIEZAS[idPieza].titulo}") ya estaba desbloqueada. ¡Presiona CONTINUAR para revisarla!`);
+                 // Si no es un ID válido, va a la colección
+                mostrarPantalla('pantalla-coleccion');
             }
-            
-            // Limpia la URL para ocultar el código secreto y evitar problemas
-            window.history.replaceState({}, document.title, window.location.pathname);
         } else {
-             // Notificación en caso de código incorrecto (opcional)
-             // alert('Código QR inválido. Intenta escanear un código de colección válido.');
-             window.history.replaceState({}, document.title, window.location.pathname); // Limpia URL
+            // Si no hay hash, comienza en la introducción
+            mostrarPantalla('pantalla-introduccion');
         }
     }
-}
-
-
-// -----------------------------------
-// 5. INICIALIZACIÓN
-// -----------------------------------
-
-function iniciarApp() {
-    // 1. Revisa si hay un código QR en la URL
-    verificarDesbloqueo();
     
-    // 2. Muestra siempre la pantalla de introducción al cargar la página.
-    mostrarPantalla(PANTALLAS.INTRO);
-    
-    // 3. Evento para el botón de "CONTINUAR" (Intro -> Colección)
-    document.getElementById('btn-continuar').addEventListener('click', () => {
-        mostrarPantalla(PANTALLAS.COLECCION);
-    });
+    // Llama a la función al inicio para verificar si viene de un QR
+    verificarHash();
 
-    console.log("App iniciada. Lista para la detección de QR.");
-}
-
-// Inicia la aplicación cuando el DOM esté completamente cargado.
-document.addEventListener('DOMContentLoaded', iniciarApp);
+});
