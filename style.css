@@ -37,6 +37,7 @@ body {
 /* ----------------------------------- */
 
 #pantalla-introduccion {
+    /* RUTA CORREGIDA: Apunta a la nueva carpeta sin espacios */
     background-image: url('assets/fondo1.jpg'); 
     background-size: cover;
     background-position: center;
@@ -129,13 +130,13 @@ button:hover {
 /* ----------------------------------- */
 
 #pantalla-coleccion {
+    /* RUTA CORREGIDA: Apunta a la nueva carpeta sin espacios */
     background-image: url('assets/fondo2.jpg'); 
     background-size: cover;
     background-position: center;
     position: relative; 
-    /* ¡AJUSTE CLAVE 1 PARA EL SCROLL! */
     justify-content: flex-start;
-    padding-top: 30px; /* Reducido a 30px para dar más espacio */
+    padding-top: 30px; 
 }
 
 /* Capa de opacidad para el mapa */
@@ -169,8 +170,7 @@ button:hover {
     gap: 30px; 
     padding: 20px;
     
-    /* ¡AJUSTE CLAVE 2 PARA EL SCROLL! */
-    max-height: 95vh; /* Aumentado a 95vh para que el área de scroll sea más grande */
+    max-height: 95vh; 
     overflow-y: auto; 
     scrollbar-width: none; /* Ocultar scrollbar en Firefox */
 }
@@ -272,7 +272,7 @@ button:hover {
     
     /* Ajustes para la Introducción (¡CLAVE!) */
     #pantalla-introduccion h1 {
-        font-size: 3em !important; /* <-- FORZAR REDUCCIÓN DEL TÍTULO */
+        font-size: 3em !important; 
     }
     .texto-versiculo {
         bottom: 10px;
