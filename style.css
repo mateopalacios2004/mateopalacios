@@ -61,8 +61,7 @@ body {
 #cronometro-container {
     /* POSICIONAMIENTO ABSOLUTO Y CENTRADO ARRIBA */
     position: absolute; 
-    /* VALOR AJUSTADO: Lo baja para que se vea bien en la parte superior */
-    top: -10px; 
+    top: -10px; /* Posición ajustada */
     left: 50%; 
     transform: translateX(-50%); 
     z-index: 100; 
@@ -131,7 +130,7 @@ button:hover {
 
 
 /* ------------------------------------------- */
-/* 4. Pantalla de Colección (Mapa) - CORREGIDO */
+/* 4. Pantalla de Colección (Mapa) */
 /* ------------------------------------------- */
 
 #pantalla-coleccion {
@@ -279,4 +278,66 @@ button:hover {
     width: 100%;
     height: 100%;
     border: none;
+}
+
+
+/* =========================================== */
+/* 6. RESPONSIVE DESIGN (Media Queries)        */
+/* =========================================== */
+
+/* Se aplica a pantallas de 600px o menos (Móviles) */
+@media (max-width: 600px) {
+    
+    /* --- Ajustes de la Pantalla de Introducción --- */
+    
+    /* Reduce el tamaño del título principal para que no se desborde */
+    .contenido-flotante-intro h1 {
+        font-size: 2em; 
+    }
+    
+    /* --- Ajustes del Cronómetro --- */
+    
+    #cronometro-container {
+        /* Lo subimos un poco más en móviles para que no estorbe al título */
+        top: -20px; 
+        padding: 10px; /* Reduce el padding del recuadro */
+    }
+
+    /* Reduce el tamaño del tiempo para que quepa en una línea */
+    #cronometro {
+        font-size: 1.5em; 
+    }
+
+    /* --- Ajustes de las Piezas Coleccionables (Mapa) --- */
+    
+    /* Reduce el tamaño de los círculos para que quepan mejor */
+    .coleccion-item {
+        width: 80px; 
+        height: 80px;
+    }
+    
+    /* Ajusta el tamaño del candado y el texto dentro del círculo */
+    .coleccion-item.bloqueada::before {
+        font-size: 2.5em;
+    }
+    
+    .coleccion-item p {
+        font-size: 0.8em;
+    }
+
+    /* --- Ajustes de la Pantalla de Detalle --- */
+    
+    /* El contenedor de detalle usa casi todo el ancho */
+    #contenido-detalle {
+        width: 95%;
+        padding: 20px;
+    }
+
+    /* El botón de volver queda mejor en la parte superior derecha */
+    #pantalla-detalle #btn-volver-mapa {
+        top: 10px;
+        left: auto;
+        right: 10px;
+        transform: none;
+    }
 }
