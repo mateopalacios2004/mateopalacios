@@ -9,7 +9,7 @@ const mapaDeTesoros = {
         descripcion: "Sé lo mucho que significa para ti la serie de Bob Esponja. Literalmente fue tu infancia y sé que a la 'Titi' de tu interior, esa niña pequeñita, fue y es muy feliz al verla. Quiero obsequiarte esta primera pieza para que la armes y así, próximamente, puedas ir desbloqueando las demás. Esta pieza me hace recordar mucho el capítulo cuando Calamardo lee el diario de Bob Esponja y hace como gallina, me parece muy gracioso. Bueno, para finalizar, ¡quién sabe si puedas tener un mini Fondo de Bikini! jejeje...",
         imagen: "assets/imagen-01.jpg", 
         silueta: "assets/silueta-01.png",
-        video_url: "PONER_AQUI_URL_DE_YOUTUBE_PIEZA_1" // Recuerda poner un link de YouTube aquí
+        video_url: "PONER_AQUI_URL_DE_YOUTUBE_PIEZA_1" 
     },
     
     // Pieza 2: Casa de Bob Esponja
@@ -59,85 +59,130 @@ const mapaDeTesoros = {
 };
 
 /* ------------------------------------------------------------- */
-/* 2. Lógica de Navegación y Desbloqueo (CORREGIDA) */
+/* 2. Lógica de Navegación, Cronómetro y Desbloqueo */
 /* ------------------------------------------------------------- */
 
 // Variable global para guardar la pieza escaneada por QR
 let piezaDesbloqueadaPorQR = null;
 
-document.addEventListener('DOMContentLoaded', () => {
+// Establece la fecha y hora EXACTA de la CARTA #1 
+// EJEMPLO: Martes 9 de Diciembre de 2025 a las 9:00 AM. ¡AJUSTA EL AÑO Y LA HORA!
+const fechaObjetivo = new Date("December 9, 2025 09:00:00").getTime(); 
 
-    // --- Funciones de Utilidad ---
+let intervaloCronometro; // Variable para controlar el cronómetro
 
-    function mostrarPantalla(id) {
-        document.querySelectorAll('.pantalla').forEach(pantalla => {
-            pantalla.classList.remove('activa');
-        });
-        document.getElementById(id).classList.add('activa');
-    }
+// --- Funciones de Utilidad ---
 
-    function mostrarDetalle(piezaId) {
-        const data = mapaDeTesoros[piezaId];
-        const detalleContainer = document.getElementById('contenido-detalle');
-        
-        // ... (el resto de la función mostrarDetalle es el mismo: inyecta HTML) ...
-        
-        if (!data) return;
+function mostrarPantalla(id) {
+    document.querySelectorAll('.pantalla').forEach(pantalla => {
+        pantalla.classList.remove('activa');
+    });
+    document.getElementById(id).classList.add('activa');
+}
 
-        // Extrae el ID de YouTube
-        const videoIdMatch = data.video_url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?.*v=|(?:embed|v)\/))([^&?]+)/);
-        const videoId = videoIdMatch ? videoIdMatch[1] : null;
-        
-        let videoEmbedHtml = '';
-        if (videoId) {
-            videoEmbedHtml = `
-                <div class="video-container">
-                    <iframe 
-                        src="https://www.youtube.com/embed/${videoId}?autoplay=1" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                        allowfullscreen>
-                    </iframe>
-                </div>`;
+function actualizarCronometro() {
+    const ahora = new Date().getTime();
+    let diferencia = fechaObjetivo - ahora;
+
+    if (diferencia < 0) {
+        clearInterval(intervaloCronometro);
+        const cronometroElemento = document.getElementById("cronometro");
+        if (cronometroElemento) {
+             cronometroElemento.innerHTML = "¡LA CARTA #1 ESTÁ AQUÍ!";
         }
-        
-        // Contenido que se inyecta en la pantalla de detalle
-        detalleContainer.innerHTML = `
-            <h2>${data.titulo}</h2>
-            <p>${data.descripcion}</p>
-            <p><strong>Fecha especial:</strong> ${data.fecha || 'PONER AQUÍ FECHA'}</p>
-            
-            <img src="${data.imagen}" alt="${data.titulo}">
-            
-            ${videoEmbedHtml}
-        `;
-        
-        mostrarPantalla('pantalla-detalle');
+        return;
     }
 
+    const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+    const horas = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
+    const segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
+
+    // Formatea el resultado SIN asteriscos
+    const cronometroElemento = document.getElementById("cronometro");
+    if (cronometroElemento) {
+        cronometroElemento.innerHTML = 
+            `${dias} Días, ${horas} Horas, ${minutos} Minutos, ${segundos} Segundos`;
+    }
+}
+
+function mostrarDetalle(piezaId) {
+    const data = mapaDeTesoros[piezaId];
+    const detalleContainer = document.getElementById('contenido-detalle');
+    
+    if (!data) return;
+
+    // Guarda el estado de desbloqueo permanentemente en el navegador (localStorage)
+    localStorage.setItem(piezaId, 'desbloqueado'); 
+
+    // Extrae el ID de YouTube
+    const videoIdMatch = data.video_url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?.*v=|(?:embed|v)\/))([^&?]+)/);
+    const videoId = videoIdMatch ? videoIdMatch[1] : null;
+    
+    let videoEmbedHtml = '';
+    if (videoId) {
+        videoEmbedHtml = `
+            <div class="video-container">
+                <iframe 
+                    src="https://www.youtube.com/embed/${videoId}?autoplay=1" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+                </iframe>
+            </div>`;
+    }
+    
+    // Contenido que se inyecta en la pantalla de detalle
+    detalleContainer.innerHTML = `
+        <h2>${data.titulo}</h2>
+        <p>${data.descripcion}</p>
+        <p><strong>Fecha especial:</strong> ${data.fecha || 'PONER AQUÍ FECHA'}</p>
+        
+        <img src="${data.imagen}" alt="${data.titulo}">
+        
+        ${videoEmbedHtml}
+    `;
+    
+    mostrarPantalla('pantalla-detalle');
+}
+
+// --- Inicio del DOMContentLoaded ---
+document.addEventListener('DOMContentLoaded', () => {
+    
+    // Inicia el cronómetro
+    intervaloCronometro = setInterval(actualizarCronometro, 1000);
+    actualizarCronometro();
+
+    // --- Carga el estado guardado al iniciar (localStorage) ---
+    function cargarEstadoGuardado() {
+        document.querySelectorAll('.coleccion-item').forEach(item => {
+            const piezaId = item.id;
+            
+            if (localStorage.getItem(piezaId) === 'desbloqueado') {
+                item.classList.remove('bloqueada'); 
+            }
+        });
+    }
+    
+    cargarEstadoGuardado();
+    
     // --- 1. Lógica del Botón 'CONTINUAR' (Maneja el Desbloqueo del QR) ---
 
     document.getElementById('btn-continuar').addEventListener('click', () => {
-        
-        // Muestra la pantalla de la colección (el mapa)
         mostrarPantalla('pantalla-coleccion');
         
-        // Si hay una pieza guardada del QR, la desbloquea e ingresa
         if (piezaDesbloqueadaPorQR) {
             const piezaId = piezaDesbloqueadaPorQR;
             const item = document.getElementById(piezaId);
 
-            // Desbloquea la pieza específica
-            item.classList.remove('bloqueada');
+            item.classList.remove('bloqueada'); // Desbloquea la pieza
             
-            // Va al detalle
-            mostrarDetalle(piezaId); 
+            mostrarDetalle(piezaId); // Guarda en localStorage y muestra detalle
             
-            // Limpia la variable para que no se active de nuevo
-            piezaDesbloqueadaPorQR = null; 
+            piezaDesbloqueadaPorQR = null; // Limpia la variable
         }
     });
 
-    // --- 2. Lógica del Mapa (NO SE PUEDE HACER TRAMPA) ---
+    // --- 2. Lógica del Mapa (Evita trampa) ---
 
     document.getElementById('btn-volver-mapa').addEventListener('click', () => {
         mostrarPantalla('pantalla-coleccion');
@@ -146,12 +191,9 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.coleccion-item').forEach(item => {
         item.addEventListener('click', () => {
             
-            // Si la pieza está bloqueada, NO HACEMOS NADA (No se puede hacer trampa)
             if (item.classList.contains('bloqueada')) {
-                // Puedes añadir un sonido de 'bloqueado' si quieres, pero por ahora solo se ignora el clic.
                 return; 
             } else {
-                // Si ya está desbloqueada (porque fue revelada por un QR), muestra el detalle
                 mostrarDetalle(item.id);
             }
         });
@@ -160,19 +202,18 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- 3. Lógica de Inicio (Guarda el ID del QR) ---
 
     function verificarHash() {
-        const hash = window.location.hash.substring(1); // Obtiene solo el ID (ej: 'pieza-01')
+        const hash = window.location.hash.substring(1); 
 
         if (hash && mapaDeTesoros[hash]) {
-            // Si viene de un QR, guarda la pieza y siempre muestra la INTRODUCCIÓN
+            // Guarda la pieza y siempre muestra la INTRODUCCIÓN primero
             piezaDesbloqueadaPorQR = hash;
             mostrarPantalla('pantalla-introduccion');
         } else {
-            // Si no hay QR o es inválido, muestra la INTRODUCCIÓN normal
+            // Muestra la INTRODUCCIÓN normal
             mostrarPantalla('pantalla-introduccion');
         }
     }
     
-    // Inicia la lógica del QR al cargar la página
     verificarHash();
 
 });

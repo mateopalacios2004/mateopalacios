@@ -3,17 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
     <title>La Colección Aniversario 6</title>
-    
     <link rel="stylesheet" href="style.css?v=1.1"> 
 </head>
 <body>
 
     <div id="pantalla-introduccion" class="pantalla activa">
-        <div class="contenido-intro">
-            <h1>🎉 FELIZ ANIVERSARIO #6 ❤️</h1>
+        
+        <div id="cronometro-container">
+            <h3>CARTA #1 PROXIMAMENTE:</h3> 
+            <p id="cronometro" class="tiempo-grande">00 Días, 00 Horas, 00 Minutos, 00 Segundos</p>
+            <h3>Martes 9 de Diciembre</h3> 
+        </div>
+        
+        <div class="contenido-flotante-intro"> 
+            <h1>🎉 ¡Sorpresa de Aniversario #6! ❤️</h1>
             <p>¡Espero que te guste esta colección que tengo para ti! ❤️</p>
+            
             <button id="btn-continuar">CONTINUAR</button>
         </div>
 
@@ -24,7 +30,7 @@
     </div>
 
     <div id="pantalla-coleccion" class="pantalla">
-        <h2>Piezas Coleccionables con Mucho Amor ❤️</h2>
+        <h2 id="titulo-coleccion">Piezas Coleccionables con Mucho Amor ❤️</h2>
         
         <div class="coleccion-grid">
             <div id="pieza-01" class="coleccion-item bloqueada">
@@ -35,19 +41,19 @@
                 <p class="numero-pieza">2</p>
                 <p>Próxima Pieza</p>
             </div>
-             <div id="pieza-03" class="coleccion-item bloqueada">
+            <div id="pieza-03" class="coleccion-item bloqueada">
                 <p class="numero-pieza">3</p>
                 <p>Próxima Pieza</p>
             </div>
-             <div id="pieza-04" class="coleccion-item bloqueada">
+            <div id="pieza-04" class="coleccion-item bloqueada">
                 <p class="numero-pieza">4</p>
                 <p>Próxima Pieza</p>
             </div>
-             <div id="pieza-05" class="coleccion-item bloqueada">
+            <div id="pieza-05" class="coleccion-item bloqueada">
                 <p class="numero-pieza">5</p>
                 <p>Próxima Pieza</p>
             </div>
-             <div id="pieza-06" class="coleccion-item bloqueada">
+            <div id="pieza-06" class="coleccion-item bloqueada">
                 <p class="numero-pieza">6</p>
                 <p>Próxima Pieza</p>
             </div>
@@ -57,7 +63,7 @@
     <div id="pantalla-detalle" class="pantalla">
         <button id="btn-volver-mapa">Volver al Mapa</button>
         <div id="contenido-detalle">
-            </div>
+        </div>
     </div>
 
     <script src="script.js"></script>

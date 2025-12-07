@@ -1,311 +1,283 @@
-/* Archivo: style.css (Versión FINAL Unificada y Responsiva) */
-
-/* ----------------------------------- */
-/* 1. Base y Propiedades de Pantallas */
-/* ----------------------------------- */
+/* ------------------------------------------- */
+/* 1. Estilos Globales y Fondo */
+/* ------------------------------------------- */
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #1f2a38; 
-    color: white;
     margin: 0;
     padding: 0;
+    font-family: Arial, sans-serif;
+    color: #fff;
     text-align: center;
-    overflow-x: hidden; /* Evita el scroll horizontal en móvil */
+    overflow-x: hidden;
+    height: 100vh; 
 }
 
+/* Estilo de la pantalla (Fondo de imagen) */
 .pantalla {
-    width: 100%;
-    height: 100vh; 
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: none; 
-}
-
-.pantalla.activa {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 100vh; 
-    width: 100%;
-}
-
-
-/* ----------------------------------- */
-/* 2. Pantalla de Introducción (INTRO) */
-/* ----------------------------------- */
-
-#pantalla-introduccion {
-    /* RUTA CORREGIDA: Apunta a la nueva carpeta sin espacios */
     background-image: url('assets/fondo1.jpg'); 
     background-size: cover;
     background-position: center;
-    position: relative;
-    justify-content: center; 
-    align-items: center;
-}
-
-/* Capa de opacidad */
-#pantalla-introduccion::before {
-    content: '';
-    position: absolute;
+    background-attachment: fixed;
+    position: fixed;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.6); 
+    width: 100%;
+    height: 100%;
+    opacity: 0; 
+    transition: opacity 0.5s ease-in-out;
+    flex-direction: column;
     z-index: 1;
 }
 
-.contenido-intro {
+.pantalla.activa {
+    opacity: 1; 
+    z-index: 10;
+}
+
+/* Centrado para Introducción y Detalle */
+#pantalla-introduccion, #pantalla-detalle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ------------------------------------------- */
+/* 2. Pantalla de Introducción y Cronómetro */
+/* ------------------------------------------- */
+
+/* ELIMINAMOS EL FONDO NEGRO DE LA INTRODUCCIÓN. El texto flota libremente. */
+.contenido-flotante-intro {
+    padding: 0; /* Sin padding */
+    max-width: 90%;
+    z-index: 20; 
+    /* Alineación de contenido flotante */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     position: relative;
-    z-index: 2; 
-    color: white;
-    text-align: center;
-    padding-top: 50px; 
 }
 
-.contenido-intro h1 {
-    font-size: 4em;
+/* --- Estilos para el Cronómetro (Superior y Transparente) --- */
+#cronometro-container {
+    /* POSICIONAMIENTO ABSOLUTO Y CENTRADO ARRIBA */
+    position: absolute; 
+    top: 25px; /* Sube la caja para que aparezca arriba del título principal */
+    left: 50%; 
+    transform: translateX(-50%); 
+    z-index: 100; 
+    
+    /* ESTILO DE LA CAJA: BLANCO CON 15% DE OPACIDAD */
+    width: 90%; 
+    max-width: 400px; 
+    padding: 15px;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.15); 
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    color: white; 
+}
+
+#cronometro-container h3 {
+    margin: 5px 0;
+    font-size: 1em;
+    font-weight: normal;
+}
+
+#cronometro {
+    font-size: 1.8em; 
+    font-weight: bold;
+    color: #f1c40f; 
+    display: block; 
+}
+
+/* Ajuste para que el título principal baje un poco y no esté pegado al cronómetro */
+.contenido-flotante-intro h1 {
+    margin-top: 15px; /* Pequeño margen superior para el título */
+    font-size: 4.0em;
     margin-bottom: 10px;
+    /* Para que el título se vea bien sobre el fondo de imagen */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); 
 }
 
-/* Versículo */
 .texto-versiculo {
     position: absolute;
-    bottom: 30px; 
-    left: 30px; 
-    z-index: 2; 
-    color: white;
-    text-align: left;
-    max-width: 300px;
-    padding: 15px;
-    background-color: rgba(0, 0, 0, 0.5); 
+    bottom: 20px;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
     border-radius: 5px;
+    max-width: 80%;
+    z-index: 20;
 }
 
-.subtitulo-versiculo {
-    font-size: 1.5em; 
-    font-weight: bold;
-    margin-bottom: 5px;
-    margin-top: 0;
-    text-shadow: 1px 1px 2px #000;
-}
 
-.texto-versiculo p {
-    font-size: 0.9em; 
-    margin: 0;
-}
-
-/* ----------------------------------- */
-/* 3. Estilos Generales de Botón */
-/* ----------------------------------- */
+/* ------------------------------------------- */
+/* 3. Estilos de Botones */
+/* ------------------------------------------- */
 
 button {
-    padding: 15px 30px;
-    font-size: 1.2em;
     background-color: #e67e22; 
     color: white;
     border: none;
-    border-radius: 5px;
+    padding: 10px 20px;
+    margin-top: 20px;
+    font-size: 1.1em;
+    border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.3s;
 }
 
 button:hover {
-    background-color: #d35400;
+    background-color: #d35400; 
 }
 
-#btn-volver-mapa {
-    /* Estilo diferente para el botón de volver */
-    background-color: #3498db; 
-    padding: 10px 20px;
-    font-size: 1em;
-    margin-bottom: 20px;
-}
 
-/* ----------------------------------- */
-/* 4. Pantalla de la Colección (MAPA) */
-/* ----------------------------------- */
+/* ------------------------------------------- */
+/* 4. Pantalla de Colección (Mapa) - CORREGIDO */
+/* ------------------------------------------- */
 
 #pantalla-coleccion {
-    /* RUTA CORREGIDA: Apunta a la nueva carpeta sin espacios */
-    background-image: url('assets/fondo2.jpg'); 
-    background-size: cover;
-    background-position: center;
-    position: relative; 
-    justify-content: flex-start;
-    padding-top: 30px; 
+    overflow-y: auto; 
+    padding-top: 20px; 
+    display: block;
 }
 
-/* Capa de opacidad para el mapa */
-#pantalla-coleccion::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.4); 
-    z-index: 1;
+/* SOLUCIÓN AL PROBLEMA 3: QUITAR FONDO NEGRO DEL TÍTULO DEL MAPA */
+#titulo-coleccion { /* Usamos el ID agregado al H2 en HTML */
+    background-color: transparent; /* Fondo transparente */
+    padding: 10px;
+    max-width: 500px;
+    margin: 10px auto;
+    /* Para que el título se vea bien sobre el fondo de imagen */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9); 
 }
 
-/* Asegura que el contenido esté sobre la capa de opacidad */
-#pantalla-coleccion h2, .coleccion-grid {
-    position: relative;
-    z-index: 2; 
-    color: white;
-}
-
-#pantalla-coleccion h2 {
-    margin-bottom: 30px;
-}
-
-/* Rejilla de la colección (Grid) - AJUSTE RESPONSIVO CLAVE */
 .coleccion-grid {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 30px; 
-    padding: 20px;
-    
-    max-height: 95vh; 
-    overflow-y: auto; 
-    scrollbar-width: none; /* Ocultar scrollbar en Firefox */
-}
-.coleccion-grid::-webkit-scrollbar {
-    display: none; /* Ocultar scrollbar en Chrome/Safari */
+    gap: 15px;
+    max-width: 800px;
+    margin: 20px auto;
 }
 
 .coleccion-item {
-    background-color: #34495e; 
-    border-top-left-radius: 20px; 
-    border-bottom-right-radius: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    
-    /* Configuración para adaptarse a la computadora */
-    width: 250px; 
-    height: 300px; 
-    
-    padding: 20px;
-    transition: transform 0.3s ease-in-out;
+    width: 100px;
+    height: 100px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border: 3px solid #f1c40f;
+    border-radius: 50%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    position: relative; 
+    transition: all 0.3s;
+    cursor: pointer;
+    position: relative;
+    user-select: none;
 }
+
+/* SOLUCIÓN AL PROBLEMA 4: CENTRADO DE TEXTO EN LAS PIEZAS */
+.coleccion-item p {
+    line-height: 1.1; /* Reduce el espacio entre líneas */
+    margin: 0;
+    font-size: 0.9em;
+}
+
+.coleccion-item .numero-pieza {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+
+/* ... (El resto de estilos de piezas bloqueadas y detalle se mantiene igual) ... */
 
 .coleccion-item:hover:not(.bloqueada) {
-    transform: translateY(-5px);
+    transform: scale(1.1);
+    box-shadow: 0 0 15px #f1c40f;
 }
 
-/* Estado BLOQUEADO */
 .coleccion-item.bloqueada {
-    color: #95a5a6;
-    opacity: 0.9; 
-    cursor: default;
+    background-color: rgba(0, 0, 0, 0.6);
+    border-style: dashed;
+    cursor: not-allowed;
 }
 
-.coleccion-item.bloqueada .silueta-container img {
-    width: 100px; 
-    height: auto;
-    filter: brightness(0) invert(1); 
-    opacity: 0.5;
-    margin-bottom: 10px;
+.coleccion-item.bloqueada::before {
+    content: "🔒";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 3em;
+    color: rgba(255, 255, 255, 0.8);
+    opacity: 0.8;
 }
 
-.coleccion-item.bloqueada h3 {
-    margin: 5px 0;
-    font-size: 1.2em;
+.coleccion-item.bloqueada .numero-pieza,
+.coleccion-item.bloqueada p:last-child {
+    opacity: 0.1;
 }
 
-.coleccion-item.bloqueada p {
-    font-size: 0.9em;
-    margin: 3px 0;
-}
 
-/* ----------------------------------- */
-/* 5. Pantalla de Detalle (TESORO) */
-/* ----------------------------------- */
+/* ------------------------------------------- */
+/* 5. Pantalla de Detalle de Pieza */
+/* ------------------------------------------- */
 
 #pantalla-detalle {
-    background-color: #2c3e50; 
-    justify-content: flex-start;
-    padding: 20px 0;
     overflow-y: auto; 
+    padding: 20px 0;
+    align-items: flex-start; 
 }
 
 #contenido-detalle {
-    padding: 20px;
-    max-width: 800px;
+    background-color: rgba(0, 0, 0, 0.85);
+    padding: 30px;
+    border-radius: 10px;
+    max-width: 600px;
+    width: 90%;
     text-align: left;
+    margin-top: 60px; 
+}
+
+#contenido-detalle h2 {
+    color: #f1c40f;
+    margin-top: 0;
+    text-align: center;
 }
 
 #contenido-detalle img {
     max-width: 100%;
-    border-radius: 10px;
-    margin-bottom: 20px;
+    height: auto;
+    border-radius: 8px;
+    margin: 15px 0;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#pantalla-detalle #btn-volver-mapa {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    padding: 8px 15px;
 }
 
 .video-container {
-    width: 100%;
-    padding-bottom: 56.25%; 
     position: relative;
-    margin-bottom: 20px;
+    width: 100%;
+    padding-bottom: 56.25%;
+    height: 0;
+    margin: 20px 0;
+    border-radius: 8px;
+    overflow: hidden;
 }
 
 .video-container iframe {
     position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     border: none;
-    border-radius: 10px;
-}
-
-/* ----------------------------------- */
-/* 6. MEDIAS QUERIES (ADAPTACIÓN A MÓVILES) */
-/* ----------------------------------- */
-
-@media (max-width: 768px) {
-    
-    /* Ajustes para la Introducción (¡CLAVE!) */
-    #pantalla-introduccion h1 {
-        font-size: 3em !important; 
-    }
-    .texto-versiculo {
-        bottom: 10px;
-        left: 10px;
-        padding: 10px;
-        max-width: 250px;
-    }
-    .subtitulo-versiculo {
-        font-size: 1.2em;
-    }
-
-    /* Ajustes para el Mapa de Colección */
-    #pantalla-coleccion h2 {
-        font-size: 1.5em;
-        margin-top: 10px;
-        text-align: center;
-        padding: 0 10px;
-    }
-    
-    /* Hacer que los recuadros se estiren más en móvil */
-    .coleccion-item {
-        width: 90%; 
-        max-width: 400px; 
-        height: 250px; 
-        padding: 15px; 
-    }
-    
-    .coleccion-item.bloqueada .silueta-container img {
-        width: 80px; 
-    }
-    
-    /* Ajustes para el Detalle */
-    #contenido-detalle {
-        padding: 10px;
-    }
 }
