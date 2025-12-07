@@ -41,16 +41,16 @@ body {
     align-items: center;
 }
 
+
 /* ------------------------------------------- */
 /* 2. Pantalla de Introducción y Cronómetro */
 /* ------------------------------------------- */
 
-/* ELIMINAMOS EL FONDO NEGRO DE LA INTRODUCCIÓN. El texto flota libremente. */
+/* Contenedor sin fondo negro, el texto flota libremente */
 .contenido-flotante-intro {
-    padding: 0; /* Sin padding */
+    padding: 0; 
     max-width: 90%;
     z-index: 20; 
-    /* Alineación de contenido flotante */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -61,7 +61,8 @@ body {
 #cronometro-container {
     /* POSICIONAMIENTO ABSOLUTO Y CENTRADO ARRIBA */
     position: absolute; 
-    top: 25px; /* Sube la caja para que aparezca arriba del título principal */
+    /* VALOR AJUSTADO: Lo baja para que se vea bien en la parte superior */
+    top: -10px; 
     left: 50%; 
     transform: translateX(-50%); 
     z-index: 100; 
@@ -89,12 +90,11 @@ body {
     display: block; 
 }
 
-/* Ajuste para que el título principal baje un poco y no esté pegado al cronómetro */
+/* Título principal: se ve bien sobre el fondo y tiene un pequeño margen */
 .contenido-flotante-intro h1 {
-    margin-top: 15px; /* Pequeño margen superior para el título */
-    font-size: 4.0em;
+    margin-top: 15px; 
+    font-size: 2.5em;
     margin-bottom: 10px;
-    /* Para que el título se vea bien sobre el fondo de imagen */
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); 
 }
 
@@ -140,13 +140,12 @@ button:hover {
     display: block;
 }
 
-/* SOLUCIÓN AL PROBLEMA 3: QUITAR FONDO NEGRO DEL TÍTULO DEL MAPA */
-#titulo-coleccion { /* Usamos el ID agregado al H2 en HTML */
-    background-color: transparent; /* Fondo transparente */
+/* Título del Mapa: Fondo transparente */
+#titulo-coleccion { 
+    background-color: transparent; 
     padding: 10px;
     max-width: 500px;
     margin: 10px auto;
-    /* Para que el título se vea bien sobre el fondo de imagen */
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9); 
 }
 
@@ -175,9 +174,9 @@ button:hover {
     user-select: none;
 }
 
-/* SOLUCIÓN AL PROBLEMA 4: CENTRADO DE TEXTO EN LAS PIEZAS */
+/* Centrado de texto dentro de las piezas */
 .coleccion-item p {
-    line-height: 1.1; /* Reduce el espacio entre líneas */
+    line-height: 1.1; 
     margin: 0;
     font-size: 0.9em;
 }
@@ -188,12 +187,12 @@ button:hover {
 }
 
 
-/* ... (El resto de estilos de piezas bloqueadas y detalle se mantiene igual) ... */
-
 .coleccion-item:hover:not(.bloqueada) {
     transform: scale(1.1);
     box-shadow: 0 0 15px #f1c40f;
 }
+
+/* --- Estado Bloqueado (Muestra la silueta y candado) --- */
 
 .coleccion-item.bloqueada {
     background-color: rgba(0, 0, 0, 0.6);
