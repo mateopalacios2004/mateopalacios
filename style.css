@@ -61,7 +61,7 @@ body {
 #cronometro-container {
     /* POSICIONAMIENTO ABSOLUTO Y CENTRADO ARRIBA */
     position: absolute; 
-    top: 5px; /* Posición ajustada */
+    top: 25px; /* Posición ajustada */
     left: 50%; 
     transform: translateX(-50%); 
     z-index: 100; 
